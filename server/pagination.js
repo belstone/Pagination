@@ -66,7 +66,11 @@ var Pagination = (function () {
                 }
             }
 
-            Counts.publish(self, 'sub_count_' + self._subscriptionId, collection.find(findQuery), {noReady: true});
+            // Counts.publish(self, 'sub_count_' + self._subscriptionId, collection.find(findQuery), {noReady: true});
+
+            var counter = new Counter('sub_count_' + self._subscriptionId, collection.find(findQuery), 10000);
+            counter._collectionName = 'counts'; // for compatibility with Counts client-side library
+            counter._publishCursor(self);
 
             var handle = collection.find( findQuery, options ).observeChanges({
                 added: function (id, fields) {

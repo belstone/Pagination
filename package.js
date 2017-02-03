@@ -12,7 +12,8 @@ Package.onUse(function (api) {
         "check",
         "underscore",
         "mongo",
-        "tmeasday:publish-counts@0.7.3"
+        "tmeasday:publish-counts@0.7.3",
+        "natestrauser:publish-performant-counts@0.1.2"
     ]);
 
     api.addFiles([
