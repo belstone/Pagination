@@ -36,6 +36,8 @@ var Pagination = (function () {
             query = query || {};
             options = options || {};
 
+            self.unblock();
+
             if (!_.isEmpty(query)) {
                 filters.push(query);
             }

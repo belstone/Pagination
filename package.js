@@ -12,6 +12,7 @@ Package.onUse(function (api) {
         "check",
         "underscore",
         "mongo",
+        "meteorhacks:unblock",
         "tmeasday:publish-counts@0.7.3",
         "natestrauser:publish-performant-counts@0.1.2"
     ]);
