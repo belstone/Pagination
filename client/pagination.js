@@ -17,25 +17,29 @@ var Pagination = (function () {
             settings || {}
         );
 
-        if (!this.currentPage()) {
-            this.currentPage(settings.page);
+        for (var s in settings) {
+            this.settings.set(s, settings[s]);
         }
 
-        if (!this.perPage()) {
-            this.perPage(settings.perPage);
-        }
-
-        if (!this.filters()) {
-            this.filters(settings.filters);
-        }
-
-        if (!this.fields()) {
-            this.fields(settings.fields);
-        }
-
-        if (!this.sort()) {
-            this.sort(settings.sort);
-        }
+        // if (!this.currentPage()) {
+        //     this.currentPage(settings.page);
+        // }
+        //
+        // if (!this.perPage()) {
+        //     this.perPage(settings.perPage);
+        // }
+        //
+        // if (!this.filters()) {
+        //     this.filters(settings.filters);
+        // }
+        //
+        // if (!this.fields()) {
+        //     this.fields(settings.fields);
+        // }
+        //
+        // if (!this.sort()) {
+        //     this.sort(settings.sort);
+        // }
 
         if (!this.ready()) {
             this.ready(false);
@@ -119,7 +123,10 @@ var Pagination = (function () {
                 fields: this.fields(),
                 sort: this.sort(),
                 skip: (this.currentPage() - 1) * this.perPage(),
-                limit: this.perPage()
+                limit: this.perPage(),
+                maxTimeMS: this.settings.get('maxTimeMS'),
+                countMaxTimeMS: this.settings.get('countMaxTimeMS'),
+                countRefreshRateMS: this.settings.get('countRefreshRateMS'),
             },
             handle = Meteor.subscribe(
                 this.collection._name,

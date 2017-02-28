@@ -70,7 +70,14 @@ var Pagination = (function () {
 
             // Counts.publish(self, 'sub_count_' + self._subscriptionId, collection.find(findQuery), {noReady: true});
 
-            var handle = collection.find( findQuery, options ).observeChanges({
+            var observeOptions = {};
+            if (options.fields) observeOptions.fields = options.fields;
+            if (options.sort) observeOptions.sort = options.sort;
+            if (options.skip) observeOptions.skip = options.skip;
+            if (options.limit) observeOptions.limit = options.limit;
+            if (options.maxTimeMS) observeOptions.maxTimeMS = options.maxTimeMS;
+
+            var handle = collection.find( findQuery, observeOptions ).observeChanges({
                 added: function (id, fields) {
                     var newFields = {};
 
@@ -87,7 +94,10 @@ var Pagination = (function () {
                 }
             });
 
-            var counter = new Counter('sub_count_' + self._subscriptionId, collection.find(findQuery), 10000);
+            var countOptions = {};
+            if (options.countMaxTimeMS) countOptions.maxTimeMS = options.countMaxTimeMS;
+
+            var counter = new Counter('sub_count_' + self._subscriptionId, collection.find(findQuery, countOptions), options.countRefreshRateMS || 10000);
             counter._collectionName = 'counts'; // for compatibility with Counts client-side library
             counter._publishCursor(self);
 
