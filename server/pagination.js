@@ -76,6 +76,7 @@ var Pagination = (function () {
             if (options.skip) observeOptions.skip = options.skip;
             if (options.limit) observeOptions.limit = options.limit;
             if (options.maxTimeMS) observeOptions.maxTimeMS = options.maxTimeMS;
+            if (options.hint) observeOptions.hint = options.hint;
 
             var handle = collection.find( findQuery, observeOptions ).observeChanges({
                 added: function (id, fields) {
@@ -95,6 +96,7 @@ var Pagination = (function () {
             });
 
             var countOptions = {};
+            if (options.hint) countOptions.hint = options.hint;
             if (options.countMaxTimeMS) countOptions.maxTimeMS = options.countMaxTimeMS;
 
             var counter = new Counter('sub_count_' + self._subscriptionId, collection.find(findQuery, countOptions), options.countRefreshRateMS || 10000);

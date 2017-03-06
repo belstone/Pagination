@@ -124,6 +124,7 @@ var Pagination = (function () {
                 sort: this.sort(),
                 skip: (this.currentPage() - 1) * this.perPage(),
                 limit: this.perPage(),
+                hint: this.settings.get('hint'),
                 maxTimeMS: this.settings.get('maxTimeMS'),
                 countMaxTimeMS: this.settings.get('countMaxTimeMS'),
                 countRefreshRateMS: this.settings.get('countRefreshRateMS'),
